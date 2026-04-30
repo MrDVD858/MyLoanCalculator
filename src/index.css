@@ -1,0 +1,472 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 25% 10%;
+
+    --primary: 160 84% 36%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 15% 95%;
+    --secondary-foreground: 220 25% 10%;
+
+    --accent: 160 84% 36%;
+    --accent-foreground: 0 0% 100%;
+
+    --muted: 220 15% 95%;
+    --muted-foreground: 220 10% 45%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 10%;
+
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 160 84% 36%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --radius: 0.5rem;
+
+    --emerald: 160 84% 36%;
+    --emerald-hover: 160 84% 30%;
+    --emerald-light: 160 70% 95%;
+    --emerald-text: 160 80% 25%;
+
+    --hero-bg: 225 55% 6%;
+  }
+
+  .dark {
+    --background: 225 45% 8%;
+    --foreground: 210 35% 95%;
+
+    --primary: 160 84% 42%;
+    --primary-foreground: 225 55% 6%;
+
+    --secondary: 220 38% 13%;
+    --secondary-foreground: 210 35% 95%;
+
+    --accent: 160 84% 42%;
+    --accent-foreground: 225 55% 6%;
+
+    --muted: 220 38% 13%;
+    --muted-foreground: 215 18% 55%;
+
+    --card: 220 42% 11%;
+    --card-foreground: 210 35% 95%;
+
+    --popover: 225 45% 8%;
+    --popover-foreground: 210 35% 95%;
+
+    --border: 220 30% 18%;
+    --input: 220 30% 18%;
+    --ring: 160 84% 42%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --emerald: 160 84% 42%;
+    --emerald-hover: 160 84% 48%;
+    --emerald-light: 160 50% 10%;
+    --emerald-text: 160 80% 75%;
+
+    --hero-bg: 225 55% 5%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: "DM Sans", sans-serif;
+    overflow-x: clip;
+    font-feature-settings: "kern" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+
+  h2,
+  h3 {
+    color: hsl(var(--foreground));
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ─── Keyframes ──────────────────────────────────────────────── */
+
+@keyframes hero-pulse {
+
+  0%,
+  100% {
+    opacity: 0.10;
+    transform: translateX(-50%) scale(1);
+  }
+
+  50% {
+    opacity: 0.18;
+    transform: translateX(-50%) scale(1.08);
+  }
+}
+
+@keyframes trust-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sheen {
+  from {
+    transform: translateX(-100%) skewX(-12deg);
+  }
+
+  to {
+    transform: translateX(220%) skewX(-12deg);
+  }
+}
+
+@keyframes faq-open {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Utilities ──────────────────────────────────────────────── */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Hero background */
+  .bg-hero {
+    background-color: hsl(var(--hero-bg));
+  }
+
+  /* Hero glow orb with pulse */
+  .hero-glow {
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(16, 185, 129, 0.12) 0%, transparent 65%);
+    pointer-events: none;
+    animation: hero-pulse 5s ease-in-out infinite;
+  }
+
+  /* Dot grid texture */
+  .hero-dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  /* Emerald badge */
+  .emerald-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(16, 185, 129, 0.1);
+    border: 0.5px solid rgba(16, 185, 129, 0.3);
+    border-radius: 9999px;
+    padding: 5px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: hsl(var(--emerald-text));
+    letter-spacing: 0.01em;
+  }
+
+  .emerald-badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: hsl(var(--emerald));
+    flex-shrink: 0;
+  }
+
+  /* ─── Trust Bar ──────────────────────────────────────────── */
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: trust-fadein 0.5s ease forwards;
+  }
+
+  /* ─── Primary Button (sheen + lift) ─────────────────────── */
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateX(-100%) skewX(-12deg);
+    pointer-events: none;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(16, 185, 129, 0.38);
+  }
+
+  .btn-primary:hover::after {
+    animation: sheen 0.55s ease forwards;
+  }
+
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+
+  /* ─── Calculator Cards ───────────────────────────────────── */
+  .calc-card-link {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+  }
+
+  .calc-card-link:hover .calc-card-inner {
+    border-color: rgba(16, 185, 129, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 44px rgba(16, 185, 129, 0.10);
+  }
+
+  .calc-card-link:hover .calc-card-icon-wrap {
+    transform: scale(1.12);
+    background: rgba(16, 185, 129, 0.18);
+  }
+
+  .calc-card-inner {
+    height: 100%;
+    border: 0.5px solid hsl(var(--border));
+    border-radius: 16px;
+    padding: 24px;
+    background: hsl(var(--card));
+    transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+  }
+
+  .dark .calc-card-link:hover .calc-card-inner {
+    box-shadow: 0 20px 44px rgba(16, 185, 129, 0.16);
+  }
+
+  .calc-card-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(16, 185, 129, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    color: hsl(var(--emerald));
+    flex-shrink: 0;
+    transition: transform 0.22s ease, background 0.22s ease;
+  }
+
+  /* ─── FAQ Accordion ──────────────────────────────────────── */
+  .faq-item {
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  .faq-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+    gap: 12px;
+    transition: color 0.15s ease;
+  }
+
+  .faq-trigger:hover {
+    color: hsl(var(--emerald));
+  }
+
+  .faq-chevron {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: hsl(var(--muted-foreground));
+    transition: transform 0.28s ease;
+  }
+
+  .faq-trigger[data-open="true"] .faq-chevron {
+    transform: rotate(180deg);
+    color: hsl(var(--emerald));
+  }
+
+  .faq-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.32s ease;
+  }
+
+  .faq-body[data-open="true"] {
+    max-height: 300px;
+    animation: faq-open 0.28s ease forwards;
+  }
+
+  .faq-body-inner {
+    padding-bottom: 20px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* ─── AdSense Zone ───────────────────────────────────────── */
+  .adsense-zone {
+    width: 100%;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: hsl(var(--muted) / 0.3);
+    border: 1px dashed hsl(var(--border));
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* ─── Section Backgrounds ────────────────────────────────── */
+  .section-light-bg {
+    background-color: hsl(var(--background));
+  }
+
+  .section-muted-bg {
+    background-color: hsl(var(--muted) / 0.4);
+  }
+
+  /* ─── Formula Box ────────────────────────────────────────── */
+  .formula-box {
+    border-left: 4px solid hsl(var(--emerald));
+    background-color: hsl(var(--muted) / 0.5);
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.9rem;
+  }
+
+  /* ─── Hero embedded calc card ────────────────────────────── */
+  .hero-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+  }
+
+  .dark .hero-card {
+    background-color: rgba(15, 23, 42, 0.90);
+    border-color: rgba(51, 65, 85, 0.5);
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.5);
+  }
+
+  .hero-embedded-calc .rounded-xl,
+  .hero-embedded-calc .bg-card,
+  .hero-embedded-calc .shadow-lg {
+    box-shadow: none !important;
+    border: none !important;
+    background-color: transparent !important;
+  }
+
+  .hero-embedded-calc .bg-gradient-to-br {
+    background-image: none !important;
+    background-color: hsl(var(--muted) / 0.5) !important;
+    border-radius: 0.75rem !important;
+    border: 1px solid hsl(var(--border) / 0.5) !important;
+  }
+
+  /* ─── Custom Nav Dropdown ────────────────────────────────── */
+  .nav-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 220px;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+    padding: 6px;
+    z-index: 100;
+    animation: faq-open 0.18s ease forwards;
+  }
+
+  .nav-dropdown-item {
+    display: block;
+    padding: 9px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: hsl(var(--muted-foreground));
+    text-decoration: none;
+    transition: background 0.14s ease, color 0.14s ease;
+  }
+
+  .nav-dropdown-item:hover,
+  .nav-dropdown-item.active {
+    background: hsl(var(--muted));
+    color: hsl(var(--foreground));
+  }
+
+  .nav-dropdown-item.active {
+    color: hsl(var(--emerald));
+    font-weight: 600;
+  }
+}

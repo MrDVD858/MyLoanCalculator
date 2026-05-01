@@ -176,7 +176,7 @@ const AboutPage = () => {
                   onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(var(--emerald-hover))')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(var(--emerald))')}
                 >
-                  hello@myloancalcs.com
+                  contact@myloancalcs.com
                 </a>
               </div>
             </motion.div>

@@ -2,37 +2,116 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Home, Car, CreditCard, GraduationCap, ArrowRight, ChevronDown, ShieldCheck, Zap, Lock } from 'lucide-react';
+import {
+  Home, Car, CreditCard, GraduationCap, ArrowRight, ChevronDown,
+  ShieldCheck, Zap, Lock, TrendingDown, RefreshCw, Calendar,
+  DollarSign, Percent, Receipt, Calculator, Scale, Tag
+} from 'lucide-react';
 import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
-import { Button } from '@/components/ui/button';
 
 /* ─── Data ───────────────────────────────────────────────────── */
 
-const calculators = [
+const calcCategories = [
   {
-    icon: Home,
-    title: 'Mortgage Calculator',
-    description: 'Calculate your monthly mortgage payment, total interest, and overall loan cost.',
-    path: '/mortgage-calculator',
+    label: 'Loan Calculators',
+    items: [
+      {
+        icon: Home,
+        title: 'Mortgage Calculator',
+        description: 'Calculate your monthly mortgage payment, total interest, and overall loan cost.',
+        path: '/mortgage-calculator',
+      },
+      {
+        icon: Car,
+        title: 'Auto Loan Calculator',
+        description: 'Estimate monthly car payments, total interest, and loan costs for your next vehicle.',
+        path: '/auto-loan-calculator',
+      },
+      {
+        icon: CreditCard,
+        title: 'Personal Loan Calculator',
+        description: 'Find your monthly personal loan payment instantly and compare loan terms.',
+        path: '/personal-loan-calculator',
+      },
+      {
+        icon: GraduationCap,
+        title: 'Student Loan Calculator',
+        description: 'Calculate monthly student loan payments for standard and income-driven plans.',
+        path: '/student-loan-calculator',
+      },
+      {
+        icon: Home,
+        title: 'HELOC Calculator',
+        description: 'Estimate payments on a home equity line of credit based on your draw and rate.',
+        path: '/heloc-calculator',
+      },
+      {
+        icon: RefreshCw,
+        title: 'Refinance Calculator',
+        description: 'See if refinancing your loan saves money and how long until you break even.',
+        path: '/refinance-calculator',
+      },
+      {
+        icon: Calendar,
+        title: 'Bi-Weekly Payment Calculator',
+        description: 'See how bi-weekly payments reduce your loan term and total interest paid.',
+        path: '/biweekly-payment-calculator',
+      },
+      {
+        icon: TrendingDown,
+        title: 'Early Payoff Calculator',
+        description: 'Find out how much you save by making extra payments toward your loan.',
+        path: '/early-payoff-calculator',
+      },
+      {
+        icon: Scale,
+        title: 'Loan Comparison Calculator',
+        description: 'Compare two loan offers side by side to find the better deal.',
+        path: '/loan-comparison-calculator',
+      },
+      {
+        icon: TrendingDown,
+        title: 'Debt Consolidation Calculator',
+        description: 'See if consolidating your debts into one loan saves you money.',
+        path: '/debt-consolidation-calculator',
+      },
+    ],
   },
   {
-    icon: Car,
-    title: 'Auto Loan Calculator',
-    description: 'Estimate monthly car payments, total interest, and loan costs for your next vehicle.',
-    path: '/auto-loan-calculator',
-  },
-  {
-    icon: CreditCard,
-    title: 'Personal Loan Calculator',
-    description: 'Find your monthly personal loan payment instantly and compare loan terms.',
-    path: '/personal-loan-calculator',
-  },
-  {
-    icon: GraduationCap,
-    title: 'Student Loan Calculator',
-    description: 'Calculate monthly student loan payments for standard and income-driven plans.',
-    path: '/student-loan-calculator',
+    label: 'Financial Tools',
+    items: [
+      {
+        icon: Tag,
+        title: 'Discount Calculator',
+        description: 'Quickly calculate sale prices and savings from any discount percentage.',
+        path: '/discount-calculator',
+      },
+      {
+        icon: Percent,
+        title: 'Percentage Change Calculator',
+        description: 'Calculate percentage increase or decrease between any two values.',
+        path: '/percentage-change-calculator',
+      },
+      {
+        icon: Receipt,
+        title: 'Sales Tax Calculator',
+        description: 'Calculate the total cost of any purchase including sales tax.',
+        path: '/sales-tax-calculator',
+      },
+      {
+        icon: DollarSign,
+        title: 'Tip Calculator',
+        description: 'Calculate tips and split bills evenly among any number of people.',
+        path: '/tip-calculator',
+      },
+      {
+        icon: Calculator,
+        title: 'Grade Calculator',
+        description: 'Calculate your course grade based on assignments, exams, and weights.',
+        path: '/grade-calculator',
+      },
+    ],
   },
 ];
 
@@ -79,9 +158,7 @@ const fadeUp = {
 
 const cardContainer = {
   hidden: {},
-  show: {
-    transition: { staggerChildren: 0.08 },
-  },
+  show: { transition: { staggerChildren: 0.07 } },
 };
 
 const cardItem = {
@@ -93,11 +170,8 @@ const cardItem = {
 
 const AdLeaderboard = () => {
   useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) { }
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { }
   }, []);
-
   return (
     <div className="adsense-zone my-2">
       <ins
@@ -114,11 +188,8 @@ const AdLeaderboard = () => {
 
 const AdMidpage = () => {
   useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) { }
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { }
   }, []);
-
   return (
     <div className="adsense-zone my-2">
       <ins
@@ -137,7 +208,6 @@ const AdMidpage = () => {
 
 const FaqItem = ({ q, a }) => {
   const [open, setOpen] = useState(false);
-
   return (
     <div className="faq-item">
       <button
@@ -159,11 +229,13 @@ const FaqItem = ({ q, a }) => {
 /* ─── Page ───────────────────────────────────────────────────── */
 
 const HomePage = () => {
+  const totalCalcs = calcCategories.reduce((sum, cat) => sum + cat.items.length, 0);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Helmet>
         <title>Free Loan Calculators | MyLoanCalcs</title>
-        <meta name="description" content="Free loan calculators for mortgage, auto, personal, and student loans. Instant results — no sign-up required." />
+        <meta name="description" content="Free loan calculators for mortgage, auto, personal, student loans and more. Instant results — no sign-up required." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://myloancalcs.com/" />
         <meta property="og:image" content="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80" />
@@ -213,7 +285,7 @@ const HomePage = () => {
                 className="text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-10"
                 style={{ color: 'rgba(255,255,255,0.6)' }}
               >
-                Free, accurate calculators for mortgages, auto loans, personal loans, and student debt. Get instant answers and plan your financial future.
+                Free, accurate calculators for mortgages, auto loans, personal loans, student debt, and more. Get instant answers and plan your financial future.
               </motion.p>
 
               <motion.div
@@ -226,10 +298,7 @@ const HomePage = () => {
                 <Link
                   to="/mortgage-calculator"
                   className="btn-primary inline-flex items-center justify-center font-bold text-[15px] h-[52px] px-8 rounded-lg text-white transition-all duration-200"
-                  style={{
-                    background: 'hsl(var(--emerald))',
-                    boxShadow: '0 8px 24px rgba(16,185,129,0.3)',
-                  }}
+                  style={{ background: 'hsl(var(--emerald))', boxShadow: '0 8px 24px rgba(16,185,129,0.3)' }}
                 >
                   Calculate Mortgage
                 </Link>
@@ -254,7 +323,7 @@ const HomePage = () => {
                 className="flex flex-wrap gap-x-10 gap-y-3 justify-center"
               >
                 {[
-                  { value: '4', label: 'Free calculators' },
+                  { value: `${totalCalcs}`, label: 'Free calculators' },
                   { value: '0', label: 'Sign-ups needed' },
                   { value: '100%', label: 'Free forever' },
                 ].map((stat) => (
@@ -274,11 +343,7 @@ const HomePage = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
               {trustItems.map((item, i) => (
-                <div
-                  key={item.label}
-                  className="trust-item"
-                  style={{ animationDelay: `${i * 0.1}s` }}
-                >
+                <div key={item.label} className="trust-item" style={{ animationDelay: `${i * 0.1}s` }}>
                   <item.icon className="w-4 h-4 flex-shrink-0" style={{ color: 'hsl(var(--emerald))' }} />
                   <span className="text-[13px] font-medium text-muted-foreground">{item.label}</span>
                 </div>
@@ -312,37 +377,57 @@ const HomePage = () => {
                 Choose your calculator
               </h2>
               <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-                Select the tool that matches your borrowing needs — instant results, no sign-up.
+                Select the tool that matches your needs — instant results, no sign-up.
               </p>
             </motion.div>
 
-            <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto"
-              variants={cardContainer}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: '-40px' }}
-            >
-              {calculators.map((calc) => (
-                <motion.div key={calc.path} variants={cardItem}>
-                  <Link to={calc.path} className="calc-card-link">
-                    <div className="calc-card-inner">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="calc-card-icon-wrap">
-                          <calc.icon className="h-6 w-6" />
-                        </div>
-                        <ArrowRight
-                          className="h-5 w-5 mt-1"
-                          style={{ color: 'hsl(var(--muted-foreground))' }}
-                        />
-                      </div>
-                      <h3 className="text-[17px] font-bold text-foreground mb-2">{calc.title}</h3>
-                      <p className="text-[14px] text-muted-foreground leading-relaxed">{calc.description}</p>
-                    </div>
-                  </Link>
+            {calcCategories.map((category) => (
+              <div key={category.label} className="mb-14 max-w-5xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex items-center gap-3 mb-6"
+                >
+                  <span
+                    className="text-[11px] font-bold uppercase tracking-widest"
+                    style={{ color: 'hsl(var(--emerald))' }}
+                  >
+                    {category.label}
+                  </span>
+                  <div className="flex-1 h-px bg-border" />
                 </motion.div>
-              ))}
-            </motion.div>
+
+                <motion.div
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+                  variants={cardContainer}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, margin: '-40px' }}
+                >
+                  {category.items.map((calc) => (
+                    <motion.div key={calc.path} variants={cardItem}>
+                      <Link to={calc.path} className="calc-card-link">
+                        <div className="calc-card-inner">
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="calc-card-icon-wrap">
+                              <calc.icon className="h-6 w-6" />
+                            </div>
+                            <ArrowRight
+                              className="h-5 w-5 mt-1"
+                              style={{ color: 'hsl(var(--muted-foreground))' }}
+                            />
+                          </div>
+                          <h3 className="text-[17px] font-bold text-foreground mb-2">{calc.title}</h3>
+                          <p className="text-[14px] text-muted-foreground leading-relaxed">{calc.description}</p>
+                        </div>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </div>
+            ))}
 
           </div>
         </section>
@@ -379,7 +464,7 @@ const HomePage = () => {
                 Whether you are buying a home, financing a vehicle, consolidating debt, or planning for college, MyLoanCalcs gives you a precise breakdown of principal, interest, and total cost for any loan term and rate combination.
               </p>
               <p>
-                All four calculators use the standard amortization formula used by banks worldwide. Enter your loan amount, interest rate, and term to instantly see your monthly payment and a full cost summary.
+                All calculators use the standard amortization formula used by banks worldwide. Enter your loan amount, interest rate, and term to instantly see your monthly payment and a full cost summary.
               </p>
 
               <div className="formula-box">

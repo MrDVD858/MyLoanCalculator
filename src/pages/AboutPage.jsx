@@ -170,7 +170,8 @@ const AboutPage = () => {
                   Have a question, suggestion, or found a bug? We would love to hear from you.
                 </p>
                 
-                  href="mailto:contact@myloancalcs.com"
+                <a
+                href="mailto:contact@myloancalcs.com"
                   className="inline-flex items-center gap-2 text-[15px] font-semibold transition-colors duration-150"
                   style={{ color: 'hsl(var(--emerald))' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(var(--emerald-hover))')}
